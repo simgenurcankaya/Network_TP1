@@ -1,13 +1,22 @@
 import socket
+import sys
 
-#receiver from r2 to r1 
-UDP_IP = "10.10.8.1"
-UDP_PORT = 14121
+# Create a socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-sock = socket.socket(socket.AF_INET, # Internet
-                     socket.SOCK_DGRAM) # UDP
-sock.bind((UDP_IP, UDP_PORT))
+# Bind the socket to the port
+server_address = ('localhost', 10000)
+print >>sys.stderr, 'starting up on %s port %s' % server_address
+sock.bind(server_address)
 
 while True:
-    data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-    print "received message:", data
+    print >>sys.stderr, '\nwaiting to receive message'
+    data, address = sock.recvfrom(4096)
+    
+    print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
+    print >>sys.stderr, data
+    
+    if data:
+        sent = sock.sendto(data, address)
+        print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
+

@@ -1,14 +1,23 @@
-import socket 
+import socket
+import sys
 
-#send from r1 to r2 
-UDP_IP = "10.10.8.2"
-UDP_PORT = 14121 #port is the same
-MESSAGE = "Hello, World!"
+# Create a UDP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-print "UDP target IP:", UDP_IP
-print "UDP target port:", UDP_PORT
-print "message:", MESSAGE
- 
-sock = socket.socket(socket.AF_INET, # Internet
-                    socket.SOCK_DGRAM) # UDP
-sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
+server_address = ('localhost', 10000)
+message = 'This is the message.  It will be repeated.'
+
+try:
+
+    # Send data
+    print >>sys.stderr, 'sending "%s"' % message
+    sent = sock.sendto(message, server_address)
+
+    # Receive response
+    print >>sys.stderr, 'waiting to receive'
+    data, server = sock.recvfrom(4096)
+    print >>sys.stderr, 'received "%s"' % data
+
+finally:
+    print >>sys.stderr, 'closing socket'
+    sock.close()
