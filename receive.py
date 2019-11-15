@@ -1,7 +1,8 @@
 import socket
 
-UDP_IP = "10.10.1.2"
-UDP_PORT = 25411
+#receiver from r2 to r1 
+UDP_IP = "10.10.8.1"
+UDP_PORT = 14121
 
 sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP

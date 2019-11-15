@@ -1,6 +1,8 @@
 import socket 
-UDP_IP = "10.10.2.1"
-UDP_PORT = 25412
+
+#send from r1 to r2 
+UDP_IP = "10.10.8.2"
+UDP_PORT = 14121 #port is the same
 MESSAGE = "Hello, World!"
 
 print "UDP target IP:", UDP_IP
