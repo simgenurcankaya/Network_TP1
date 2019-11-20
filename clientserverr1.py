@@ -3,8 +3,8 @@ import time
 
 UDP_IP_ADDRESS = "10.10.8.1"  #r2den r1e
 UDP_IP_ADDRESS2 = "10.10.8.2" #r1den r2ye
-UDP_PORT1 = 32984  #data alma port
-UDP_PORT2 = 34156  #data yollama port
+UDP_PORT1 = 32985  #data alma port
+UDP_PORT2 = 34155  #data yollama port
 Message = "Hello, R2"
 
 clientSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
