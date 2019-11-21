@@ -37,7 +37,7 @@ def message(port,ip):
 
 if __name__ == "__main__":
     thread1 = threading.Thread(target=message, args=(PORT_r1,IP_r1_s))
-    thread2 = threading.Thread(target=message, args=(PORT_r2,IP_r2_s))
+    thread2 = threading.Thread(target=message, args=(PORT_r2,IP_s_r2))
     thread3 = threading.Thread(target=message, args=(PORT_r3,IP_r3_s))
 
     thread1.start()

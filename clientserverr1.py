@@ -37,7 +37,7 @@ def message(port,ip):
             diff = end - start
             ortalama += diff
             print "Difference " , diff
-            r1_r2.write(str(diff))
+            r1_r2.write(str(diff)+'\n')
             #print "Ortalama" , ortalama
         elif (ip == UDP_IP_ADDRESS): #receiver
             data, addr = serverSock.recvfrom(18) 
@@ -47,6 +47,15 @@ def message(port,ip):
             print "asdalksdaslk\n"
 
     r1_r2.close()
+    avarageCalculator("r1_r2.txt")
+
+
+def avarageCalculator(a):
+    f=open(a,"r")
+    average = 0
+    for line in f:
+        average += float(line.strip('\n'))
+    print "AVARAGEEEEEEEEEEE " , average
 
 
 if __name__ == "__main__":
@@ -76,7 +85,8 @@ if __name__ == "__main__":
 
     logging.info("Main    : all done")
 
-    print "ORTALAMA", ortalama
+    
+
 print "Thread Stopped"
 def Client(port,ip):
         logging.info("Client mode for R1")
@@ -87,9 +97,9 @@ def Server(port,ip):
         data, addr = serverSock.recvfrom(50) 
         print "received message:", data
 
-if __name__ == "__main__":
-    x = threading.Thread(target=Server, args=(UDP_PORT,UDP_IP_ADDRESS))
-    x.start()
+# if __name__ == "__main__":
+#     x = threading.Thread(target=Server, args=(UDP_PORT,UDP_IP_ADDRESS))
+#     x.start()
     
-    y = threading.Thread(target=Client, args=(UDP_PORT,UDP_IP_ADDRESS2))
-    y.start()
+#     y = threading.Thread(target=Client, args=(UDP_PORT,UDP_IP_ADDRESS2))
+#     y.start()
