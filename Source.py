@@ -1,5 +1,6 @@
 import socket
 import time
+import threading
 
 IP_r1_s = "10.10.1.1" #The IP of Router1 -> Source
 IP_r2_s = "10.10.2.2" #The IP of Router2 -> Source
@@ -20,23 +21,23 @@ serverSockR3.bind((IP_r3_s, PORT_r3))
 def message(port,ip):
     for i in range(100):
         if(ip == IP_r1_s):
-            data, addr = serverSock.recvfrom(50) 
+            data, addr = serverSockR1.recvfrom(50)
             print "received message:", data
-        
-        elif (ip == IP_s_r2):
-            data, addr = serverSock.recvfrom(50) 
+
+        elif (ip == IP_r2_s):
+            data, addr = serverSockR2.recvfrom(50)
             print "received message:", data
-        
+
         elif (ip == IP_r3_s):
-            data, addr = serverSock.recvfrom(50) 
+            data, addr = serverSockR3.recvfrom(50)
             print "received message:", data
-        
+
         else:
             print "Error"
 
 if __name__ == "__main__":
     thread1 = threading.Thread(target=message, args=(PORT_r1,IP_r1_s))
-    thread2 = threading.Thread(target=message, args=(PORT_r2,IP_s_r2))
+    thread2 = threading.Thread(target=message, args=(PORT_r2,IP_r2_s))
     thread3 = threading.Thread(target=message, args=(PORT_r3,IP_r3_s))
 
     thread1.start()
