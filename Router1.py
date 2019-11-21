@@ -2,6 +2,7 @@ import socket
 import time
 
 
+
 ip_s_r1 = "10.10.1.2" #Sden R1e
 ip_r2_r1 = "10.10.8.1"  #r2den r1e
 ip_r1_r2 = "10.10.8.2" #r1den r2ye
