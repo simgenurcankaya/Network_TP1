@@ -10,6 +10,10 @@ PORT_r1 = 23426 #Port Number For Router1
 PORT_r2 = 44004 #Port Number For Router2
 PORT_r3 = 44002 #Port Number For Router3
 
+serverSockR1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+serverSockR2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+serverSockR3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
 serverSockR1.bind(IP_r1_d, PORT_r1)
 serverSockR2.bind(IP_r2_d, PORT_r2)
 serverSockR3.bind(IP_r3_d, PORT_r3)
