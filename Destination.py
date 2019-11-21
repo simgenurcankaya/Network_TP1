@@ -10,9 +10,9 @@ PORT_r1 = 23426 #Port Number For Router1
 PORT_r2 = 44004 #Port Number For Router2
 PORT_r3 = 44002 #Port Number For Router3
 
-serverSockR1.bind((IP_r1_d, PORT_r1))
-serverSockR2.bind((IP_r2_d, PORT_r2))
-serverSockR3.bind((IP_r3_d, PORT_r3))
+serverSockR1.bind(IP_r1_d, PORT_r1)
+serverSockR2.bind(IP_r2_d, PORT_r2)
+serverSockR3.bind(IP_r3_d, PORT_r3)
 
 def message(port,ip):
     for i in range(100):
