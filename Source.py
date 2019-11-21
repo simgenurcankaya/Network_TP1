@@ -20,25 +20,25 @@ serverSockR3.bind((IP_r3_s, PORT_r3))
 def message(port,ip):
     for i in range(100):
         if(ip == IP_r1_s):
-            data, addr = serverSock.recvfrom(18) 
+            data, addr = serverSock.recvfrom(50) 
             print "received message:", data
         
         elif (ip == IP_s_r2):
-            data, addr = serverSock.recvfrom(18) 
+            data, addr = serverSock.recvfrom(50) 
             print "received message:", data
         
         elif (ip == IP_r3_s):
-            data, addr = serverSock.recvfrom(18) 
+            data, addr = serverSock.recvfrom(50) 
             print "received message:", data
         
         else:
             print "Error"
 
 if __name__ == "__main__":
-    x = threading.Thread(target=message, args=(PORT_r1,IP_r1_s))
-    y = threading.Thread(target=message, args=(PORT_r2,IP_s_r2))
-    z = threading.Thread(target=message, args=(PORT_r3,IP_r3_s))
+    thread1 = threading.Thread(target=message, args=(PORT_r1,IP_r1_s))
+    thread2 = threading.Thread(target=message, args=(PORT_r2,IP_s_r2))
+    thread3 = threading.Thread(target=message, args=(PORT_r3,IP_r3_s))
 
-    x.start()
-    y.start()
-    z.start()
+    thread1.start()
+    thread2.start()
+    thread3.start()
