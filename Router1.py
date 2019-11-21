@@ -92,7 +92,7 @@ def avarageCalculator(a):
         average += float(line.strip('\n'))
     
     wrt = open("avg.txt","a")
-    wrt.write("\n Avg for " + a + " is : "+ str(average) +"\n")
+    wrt.write("Avg for " + a + " is : "+ str(average) +"\n")
     wrt.close()
 
 if __name__ == "__main__":

@@ -17,12 +17,12 @@ ip_get_d = "10.10.7.1"
 
 port_r2= 32001  #data alma-gonderme portları
 port_s = 35437
-port_d = 44002
+port_d = 45678
 
 Message = "Sent by R3"
 
 sockS = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-ssockR2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sockR2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sockD = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 
@@ -43,7 +43,7 @@ def message(port,ip):
         if(port == port_r2):
             if(ip == ip_send_r2): ## sender
                 start = time.time()
-                clientSock.sendto(Message, (ip, port)) 
+                sockR2.sendto(Message, (ip, port)) 
                 end = time.time()
                 diff = end - start
                 ortalama += diff
@@ -51,12 +51,12 @@ def message(port,ip):
                 r3_r2.write(str(diff)+'\n')
                 #print "Ortalama" , ortalama
             elif (ip == ip_get_r2): #receiver
-                data, addr = serverSock.recvfrom(18) 
+                data, addr = sockR2.recvfrom(18) 
                 print "received message:", data
         elif(port == port_s):
             if(ip == ip_send_s):
                 start = time.time()
-                clientSock.sendto(Message, (ip, port)) 
+                sockS.sendto(Message, (ip, port)) 
                 end = time.time()
                 diff = end - start
                 ortalama += diff
@@ -64,12 +64,12 @@ def message(port,ip):
                 r3_s.write(str(diff)+'\n')
                 #print "Ortalama" , ortalama
             elif (ip == ip_get_s): #receiver
-                data, addr = serverSock.recvfrom(18) 
+                data, addr = sockS.recvfrom(18) 
                 print "received message:", data
         elif(port == port_d):
                 if(ip == ip_send_d):
                 start = time.time()
-                clientSock.sendto(Message, (ip, port)) 
+                sockD.sendto(Message, (ip, port)) 
                 end = time.time()
                 diff = end - start
                 ortalama += diff
@@ -77,7 +77,7 @@ def message(port,ip):
                 r3_d.write(str(diff)+'\n')
                 #print "Ortalama" , ortalama
             elif (ip == ip_get_d): #receiver
-                data, addr = serverSock.recvfrom(18) 
+                data, addr = sockD.recvfrom(18) 
                 print "received message:", data
         else:
             print "dddddddddddddddddddddddddddd\n\n"
@@ -94,13 +94,14 @@ def message(port,ip):
 
 def avarageCalculator(a):
     f=open(a,"r")
-    wrt = open("avg.txt","w+")
+    print "AVARAGEEEEEEEEEEE FOOORR  " , a
     average = 0
     for line in f:
         average += float(line.strip('\n'))
-    print "AVARAGEEEEEEEEEEE " , average
-    wrt.write("Avg for " + a + " is : "+ average +"\n")
-
+    
+    wrt = open("avg.txt","a")
+    wrt.write("Avg for " + a + " is : "+ str(average) +"\n")
+    wrt.close()
 
 if __name__ == "__main__":
     
@@ -125,7 +126,26 @@ if __name__ == "__main__":
     z.start()
     logging.info("Main    : wait for the thread to finish")
 
-    # x.join()
+    x.join()
+    y.join()
+    z.join()
 
+    boole = 0
+    wrt = open("avg.txt","w")
+    while(boole != 3):
+        boole = 0
+        if(x.isAlive()==False):
+            r1_r2.close()
+            avarageCalculator("r1_r2.txt")
+            boole += 1
+        if(y.isAlive() == False):
+            r1_d.close()
+            avarageCalculator("r1_d.txt")
+            boole += 1
+        if(z.isAlive() == False):
+            r1_s.close()   
+            avarageCalculator("r1_s.txt")
+            boole +=1
+    
     logging.info("Main    : all done")
 

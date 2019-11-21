@@ -17,7 +17,7 @@ IP_d_r2 = "10.10.5.2" #The IP of Destination -> Router2
 PORT_s = 35436
 PORT_r1 = 32985
 PORT_r3 = 32001
-PORT_d = 44004
+PORT_d = 44546
 
 clientS = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverS = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -25,16 +25,14 @@ serverS = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 clientD = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverD = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-clientR2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-serverR2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+clientR1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+serverR1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 clientR3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverR3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-serverR2.bind((IP_d_r2,PORT_d))
-serverR2.bind((IP_r3_r2,PORT_r3))
-serverR2.bind((IP_r1_r2,PORT_r1))
-serverR2.bind((IP_s_r2,PORT_s))
+serverR3.bind((IP_r3_r2,PORT_r3))
+serverR1.bind((IP_r1_r2,PORT_r1))
 
 start = 0 
 stop = 0
@@ -46,18 +44,19 @@ r2_d = open("r1_r2.txt","w+")
 r2_s = open("r1_s.txt","w+")
 
 def message(port,ip):
+    global ortalama
     for i in range(100):
         if(ip == IP_r1_r2):
-            data, addr = serverSock.recvfrom(50) 
+            data, addr = serverR1.recvfrom(50) 
             print "received message from Router1:", data
         
         elif (ip == IP_r3_r2):
-            data, addr = serverSock.recvfrom(50) 
+            data, addr = serverR3.recvfrom(50) 
             print "received message from Router3:", data
         
         elif (ip == IP_r2_d):
             start = time.time()
-            clientSock.sendto("This message has sent by r2", (ip, port)) 
+            clientD.sendto("This message has sent by r2", (ip, port)) 
             end = time.time()
             diff = end - start
             ortalama += diff
@@ -66,7 +65,7 @@ def message(port,ip):
 
         elif (ip == IP_r2_s):
             start = time.time()
-            clientSock.sendto("This message has sent by r2", (ip, port)) 
+            clientS.sendto("This message has sent by r2", (ip, port)) 
             end = time.time()
             diff = end - start
             ortalama += diff
