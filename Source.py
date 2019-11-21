@@ -14,9 +14,9 @@ serverSockR1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSockR2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSockR3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-serverSockR1.bind(IP_r1_s, PORT_r1)
-serverSockR2.bind(IP_r2_s, PORT_r2)
-serverSockR3.bind(IP_r3_s, PORT_r3)
+serverSockR1.bind((IP_r1_s, PORT_r1))
+serverSockR2.bind((IP_r2_s, PORT_r2))
+serverSockR3.bind((IP_r3_s, PORT_r3))
 
 def message(port,ip):
     for i in range(100):
