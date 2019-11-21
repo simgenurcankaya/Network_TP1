@@ -15,7 +15,7 @@ ip_get_s = "10.10.3.2"
 ip_send_d = "10.10.7.2"
 ip_get_d = "10.10.7.1"
 
-port_r2= 32001  #data alma-gonderme portları
+port_r2= 32001  #data alma-gonderme portlari
 port_s = 35437
 port_d = 45678
 
@@ -47,7 +47,7 @@ def message(port,ip):
                 end = time.time()
                 diff = end - start
                 ortalama += diff
-                print "Difference " , diff
+                print "Difference of R2" , diff
                 r3_r2.write(str(diff)+'\n')
                 #print "Ortalama" , ortalama
             elif (ip == ip_get_r2): #receiver
@@ -60,20 +60,20 @@ def message(port,ip):
                 end = time.time()
                 diff = end - start
                 ortalama += diff
-                print "Difference " , diff
+                print "Difference of S" , diff
                 r3_s.write(str(diff)+'\n')
                 #print "Ortalama" , ortalama
             elif (ip == ip_get_s): #receiver
                 data, addr = sockS.recvfrom(18) 
                 print "received message:", data
         elif(port == port_d):
-                if(ip == ip_send_d):
+            if(ip == ip_send_d):
                 start = time.time()
                 sockD.sendto(Message, (ip, port)) 
                 end = time.time()
                 diff = end - start
                 ortalama += diff
-                print "Difference " , diff
+                print "Difference of D  " , diff
                 r3_d.write(str(diff)+'\n')
                 #print "Ortalama" , ortalama
             elif (ip == ip_get_d): #receiver
@@ -81,16 +81,6 @@ def message(port,ip):
                 print "received message:", data
         else:
             print "dddddddddddddddddddddddddddd\n\n"
-
-
-
-    r3_r2.close()
-    r3_d.close()
-    r3_s.close()
-    avarageCalculator("r3_r2.txt")
-    avarageCalculator("r3_s.txt")
-    avarageCalculator("r3_d.txt")
-
 
 def avarageCalculator(a):
     f=open(a,"r")
@@ -135,16 +125,16 @@ if __name__ == "__main__":
     while(boole != 3):
         boole = 0
         if(x.isAlive()==False):
-            r1_r2.close()
-            avarageCalculator("r1_r2.txt")
+            r3_r2.close()
+            avarageCalculator("r3_r2.txt")
             boole += 1
         if(y.isAlive() == False):
-            r1_d.close()
-            avarageCalculator("r1_d.txt")
+            r3_d.close()
+            avarageCalculator("r3_d.txt")
             boole += 1
         if(z.isAlive() == False):
-            r1_s.close()   
-            avarageCalculator("r1_s.txt")
+            r3_s.close()   
+            avarageCalculator("r3_s.txt")
             boole +=1
     
     logging.info("Main    : all done")

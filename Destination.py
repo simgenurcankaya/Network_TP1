@@ -4,7 +4,7 @@ import threading
 
 IP_r1_d = "10.10.4.2" #The IP of Router1 -> Destination
 IP_r2_d = "10.10.5.2" #The IP of Router2 -> Destination
-IP_r3_d = "10.10.7.2" #The IP of Router3 -> Destination
+IP_r3_d = "10.10.7.1" #The IP of Router3 -> Destination
 
 PORT_r1 = 23426 #Port Number For Router1
 PORT_r2 = 44004 #Port Number For Router2
@@ -19,19 +19,19 @@ serverSockR2.bind((IP_r2_d, PORT_r2))
 serverSockR3.bind((IP_r3_d, PORT_r3))
 
 def message(port,ip):
-    for i in range(100):
+    while True:
         if(ip == IP_r1_d):
             data, addr = serverSockR1.recvfrom(50) 
             print "received message from Router1:", data
-        
+            
         elif (ip == IP_r2_d):
             data, addr = serverSockR2.recvfrom(50) 
             print "received message from Router2:", data
-        
+            
         elif (ip == IP_r3_d):
             data, addr = serverSockR3.recvfrom(50) 
             print "received message from Router3:", data
-        
+            
         else:
             print "Error"
 

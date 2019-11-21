@@ -11,8 +11,8 @@ IP_r1_r2 = "10.10.8.2" #The IP of Router1 -> Router2
 IP_r2_r3 = "10.10.6.2" #The IP of Router2 -> Router3
 IP_r3_r2 = "10.10.6.1" #The IP of Router3 -> Router2
 
-IP_r2_d = "10.10.5.1" #The IP of Router2 -> Destination
-IP_d_r2 = "10.10.5.2" #The IP of Destination -> Router2
+IP_r2_d = "10.10.5.2" #The IP of Router2 -> Destination
+IP_d_r2 = "10.10.5.1" #The IP of Destination -> Router2
 
 PORT_s = 35436
 PORT_r1 = 32985
@@ -40,8 +40,8 @@ diff = 0
 
 ortalama  = 0 
 
-r2_d = open("r1_r2.txt","w+")
-r2_s = open("r1_s.txt","w+")
+r2_d = open("r2_d.txt","w+")
+r2_s = open("r2_s.txt","w+")
 
 def message(port,ip):
     global ortalama
@@ -56,7 +56,7 @@ def message(port,ip):
         
         elif (ip == IP_r2_d):
             start = time.time()
-            clientD.sendto("This message has sent by r2", (ip, port)) 
+            clientD.sendto("This message has sent by r2", (IP_d_r2, port)) 
             end = time.time()
             diff = end - start
             ortalama += diff
@@ -65,7 +65,7 @@ def message(port,ip):
 
         elif (ip == IP_r2_s):
             start = time.time()
-            clientS.sendto("This message has sent by r2", (ip, port)) 
+            clientS.sendto("This message has sent by r2", (IP_s_r2, port)) 
             end = time.time()
             diff = end - start
             ortalama += diff
@@ -106,11 +106,11 @@ if __name__ == "__main__":
     wrt = open("avg.txt","w")
     while(boole != 2):
         boole = 0
-        if(x.isAlive()==False):
-            r1_d.close()
+        if(thread4.isAlive()==False):
+            r2_d.close()
             avarageCalculator("r2_d.txt")
             boole += 1
-        if(y.isAlive() == False):
+        if(thread3.isAlive() == False):
             r2_s.close()
             avarageCalculator("r2_s.txt")
             boole += 1
