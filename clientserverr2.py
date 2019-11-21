@@ -10,7 +10,7 @@ UDP_IP_ADDRESS = "10.10.8.1"  #r2den r1e
 UDP_IP_ADDRESS2 = "10.10.8.2" #r1den r2ye
 UDP_PORT = 32984  
 
-Message = "Hello, R1"
+Message = "This message has sent by R2"
 
 clientSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -60,8 +60,19 @@ if __name__ == "__main__":
    
 
     logging.info("Main    : before running thread")
+def Client(port,ip):
+        logging.info("Client mode for R2")
+        clientSock.sendto(Message, (ip, port)) 
+
+def Server(port,ip):
+        logging.info("Server mode for R2")
+        data, addr = serverSock.recvfrom(50) 
+        print "received message:", data
     
+if __name__ == "__main__":
+    y = threading.Thread(target=Server, args=(UDP_PORT,UDP_IP_ADDRESS2))
     y.start()
+<<<<<<< HEAD
     x.start()
 
     logging.info("Main    : wait for the thread to finish")
@@ -73,3 +84,8 @@ if __name__ == "__main__":
 
 
 print "Thread Stopped"
+=======
+   
+    x = threading.Thread(target=Client, args=(UDP_PORT,UDP_IP_ADDRESS))
+    x.start()
+>>>>>>> 8a722932ccd49120949ec885a706b938dcfa48b7
