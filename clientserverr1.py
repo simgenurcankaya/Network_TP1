@@ -1,7 +1,8 @@
 import socket
 import time
 import threading
-from thread import *
+import logging
+
 
 #tek porttan clientserver olarak yolluyor
 
@@ -17,17 +18,41 @@ serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT))
 
 def message(port,ip):
-    for i in range(0,10):
-        #Send packets to destination 
-        clientSock.sendto(Message, (ip, port))    
-        for y in range (0,10):
-            #Receive packets
+    for i in range(5):
+        if(ip == UDP_IP_ADDRESS2): ## sender
+            clientSock.sendto(Message, (ip, port)) 
+        elif (ip == UDP_IP_ADDRESS): #receiver
             data, addr = serverSock.recvfrom(18) 
             print "received message:", data
+        else:
+            print "asdalksdaslk\n"
 
 
+if __name__ == "__main__":
+    
 
-thread.start_new_thread(message, args = (UDP_PORT, UDP_IP_ADDRESS2))
-threadistart_new_thread(message, args = (UDP_PORT, UDP_IP_ADDRESS))
+    format = "%(asctime)s: %(message)s"
+
+    logging.basicConfig(format=format, level=logging.INFO,
+
+                        datefmt="%H:%M:%S")
+
+
+    logging.info("Main    : before creating thread")
+
+    x = threading.Thread(target=message, args=(UDP_PORT,UDP_IP_ADDRESS))
+    y = threading.Thread(target=message, args=(UDP_PORT,UDP_IP_ADDRESS2))
+   
+
+    logging.info("Main    : before running thread")
+    
+    x.start()
+    y.start()
+
+    logging.info("Main    : wait for the thread to finish")
+
+    # x.join()
+
+    logging.info("Main    : all done")
 
 print "Thread Stopped"
