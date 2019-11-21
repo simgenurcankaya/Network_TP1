@@ -17,19 +17,34 @@ serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 serverSock.bind((UDP_IP_ADDRESS2, UDP_PORT))
 
+start = 0 
+stop = 0
+diff = 0 
+ortalama = 0 
+
+
 def message(port,ip):
-    for i in range(5):
+    for i in range(100):
+        global ortalama
         if(ip == UDP_IP_ADDRESS): ## sender
+            start = time.time()
             clientSock.sendto(Message, (ip, port)) 
+            ip = UDP_IP_ADDRESS2
+            end = time.time()
+            diff   = end - start
+            print "Difference " , diff
+            ortalama = ortalama +  diff
         elif (ip == UDP_IP_ADDRESS2): #receiver
             data, addr = serverSock.recvfrom(18) 
             print "received message:", data
+            ip = UDP_IP_ADDRESS
         else:
             print "siiiiisssssssssssssssssssssssssssssssadasd\n"
 
 
 if __name__ == "__main__":
 
+    global ortalama
 
     format = "%(asctime)s: %(message)s"
 
@@ -54,3 +69,7 @@ if __name__ == "__main__":
     # x.join()
 
     logging.info("Main    : all done")
+    print "oRTALAMA" , ortalama
+
+
+print "Thread Stopped"
