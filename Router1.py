@@ -82,22 +82,18 @@ def message(port,ip):
         else:
             print "dddddddddddddddddddddddddddd\n\n"
 
-
-
-  #  r1_r2.close()
-  #  r1_d.close()
-  #  r1_s.close()
-
+ 
 
 def avarageCalculator(a):
     f=open(a,"r")
+    print "AVARAGEEEEEEEEEEE FOOORR  " , a
     average = 0
     for line in f:
         average += float(line.strip('\n'))
-    print "AVARAGEEEEEEEEEEE " , average
-    wrt = open("avg.txt","w+")
-    wrt.write("Avg for " + a + " is : "+ str(average) +"\n")
-
+    
+    wrt = open("avg.txt","a")
+    wrt.write("\n Avg for " + a + " is : "+ str(average) +"\n")
+    wrt.close()
 
 if __name__ == "__main__":
     
@@ -122,16 +118,26 @@ if __name__ == "__main__":
     z.start()
     logging.info("Main    : wait for the thread to finish")
 
-    # x.join()
+    x.join()
+    y.join()
+    z.join()
 
-
-    r1_r2.close()
-    r1_d.close()
-    r1_s.close()
-
-    avarageCalculator("r1_r2.txt")
-    avarageCalculator("r1_s.txt")
-    avarageCalculator("r1_d.txt")
-
+    boole = 0
+    wrt = open("avg.txt","w")
+    while(boole != 3):
+        boole = 0
+        if(x.isAlive()==False):
+            r1_r2.close()
+            avarageCalculator("r1_r2.txt")
+            boole += 1
+        if(y.isAlive() == False):
+            r1_d.close()
+            avarageCalculator("r1_d.txt")
+            boole += 1
+        if(z.isAlive() == False):
+            r1_s.close()   
+            avarageCalculator("r1_s.txt")
+            boole +=1
+    
     logging.info("Main    : all done")
 
