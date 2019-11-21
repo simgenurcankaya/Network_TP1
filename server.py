@@ -1,7 +1,6 @@
 
 import socket
 
-
 # SERVER NEEDS TO START BEFORE CLIENT
 # IP and Port is the same with client 
 UDP_IP_ADDRESS = "10.10.8.2"
