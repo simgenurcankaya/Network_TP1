@@ -8,6 +8,6 @@ d_adapter=$(ip route get $d | grep -Po '(?<=(dev )).*(?= src| proto)')
 
 
 
-sudo tc qdisc change dev $s_adapter root netem delay 40ms 5ms distribution normal
-sudo tc qdisc change dev $r2_adapter root netem delay 40ms 5ms distribution normal
-sudo tc qdisc change dev $d_adapter root netem delay 40ms 5ms distribution normal
+sudo tc qdisc change dev $s_adapter root netem delay 50ms 5ms distribution normal
+sudo tc qdisc change dev $r2_adapter root netem delay 50ms 5ms distribution normal
+sudo tc qdisc change dev $d_adapter root netem delay 50ms 5ms distribution normal
