@@ -1,5 +1,9 @@
 # Ceng 435 Term Project 1
+```python
+#Simge Nur Çankaya 2099554
+#Muhammed Süha Demirel 2098911
 
+```
 In this project we first calculate the RTT between 5 nodes. After that we are finding the shortest path using Dijkstra Algorithm.
 
 ## Installation
@@ -89,6 +93,4 @@ f = open("expConf1.txt","a")
 #f = open("expConf3.txt","a")
 ```
 
-For experiments 2 and 3 please follow the steps above by changing exp1 to exp2 and exp3 accordingly
-## Contributing
-Simge Nur Çankaya and Muhammed Süha Demirel
+For experiments 2 and 3 please follow the steps above by changing exp1 to exp2 and exp3 accordingly.
