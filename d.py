@@ -1,0 +1,55 @@
+import threading
+import socket
+
+# SERVER NEEDS TO START BEFORE CLIENT
+# IP and Port is the same with client 
+ip_send_r1 = "10.10.4.1"
+ip_get_r1 = "10.10.4.2"
+ip_send_r2= "10.10.5.1"
+ip_get_r2 = "10.10.5.2"
+ip_send_r3 = "10.10.7.2"
+ip_get_r3 = "10.10.7.1"
+
+port_r1= 23426 
+port_r2= 44004 
+port_r3= 45678 
+
+sockR1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sockR2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sockR3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+def getR1(ip,port):
+    sockR1.bind((ip,port))
+    while True:
+        data, addr = sockR1.recvfrom(1024)
+        print "Message from R1: ", data
+
+def getR2(ip,port):
+    sockR2.bind((ip,port))
+    while True:
+        data, addr = sockR2.recvfrom(1024)
+        print "Message from R2: ", data
+
+def getR3(ip,port):
+    sockR3.bind((ip,port))
+    while True:
+        data, addr = sockR3.recvfrom(1024)
+        print "Message from R3: ", data
+
+
+if __name__ == "__main__":
+    t1 = threading.Thread(target=getR1, args=(ip_get_r1,port_r1)) 
+    t2 = threading.Thread(target=getR2, args=(ip_get_r2,port_r2)) 
+    t3 = threading.Thread(target=getR3, args=(ip_get_r3,port_r3))
+    # starting thread 1 
+    t1.start() 
+    # starting thread 2 
+    t2.start() 
+    t3.start()
+    # wait until thread 1 is completely executed 
+    t1.join() 
+    # wait until thread 2 is completely executed 
+    t2.join() 
+    t3.join()
+    # both threads completely executed 
+    print("Done!") 

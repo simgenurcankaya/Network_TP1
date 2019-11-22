@@ -4,20 +4,20 @@ import threading
 import logging
 
 
-ip_get_r2 = "10.10.8.1"  #r2den r1e
-ip_send_r2 = "10.10.8.2" #r1den r2ye
+ip_get_r2 = "10.10.6.2"  #r2den r1e
+ip_send_r2 = "10.10.6.1" #r1den r2ye
 
-ip_send_s = "10.10.1.1"
-ip_get_s = "10.10.1.2"
+ip_send_s = "10.10.3.1"
+ip_get_s = "10.10.3.2"
 
-ip_send_d = "10.10.4.2"
-ip_get_d = "10.10.4.1"
+ip_send_d = "10.10.7.1"
+ip_get_d = "10.10.7.2"
 
-port_r2= 32984  #data alma-gonderme portlari
-port_s = 32985
-port_d = 23426
+port_r2= 32001  #data alma-gonderme portlari
+port_s = 35437
+port_d = 45678
 
-Message = "Sent by R1 "
+Message = "Sent by R3 "
 
 sockS = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sockR2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
