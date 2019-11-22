@@ -94,6 +94,11 @@ if __name__ == "__main__":
     # wait until thread 2 is completely executed 
     t2.join() 
     t3.join()
+
+    print t1.isAlive()
+    print t2.isAlive()
+    print t3.isAlive()
+
     # both threads completely executed 
     print("Done!") 
 

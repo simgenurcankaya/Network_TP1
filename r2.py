@@ -62,17 +62,21 @@ def sendD(ip,port):
 
 def getR1(ip,port):
     sockR1.bind((ip,port))
-    while True:
+    i  =1000
+    while i:
         data, addr = sockR1.recvfrom(1024)
         print "Message: ", data
         sockR1.sendto(data, addr)
+        i -= 1
 
 def getR3(ip,port):
     sockR3.bind((ip,port))
-    while True:
+    i  =1000
+    while i:
         data, addr = sockR3.recvfrom(1024)
         print "Message: ", data
         sockR3.sendto(data, addr)
+        i -= 1
 
 def avgCalc(a):
     f = open(a,"r")
@@ -102,6 +106,11 @@ if __name__ == "__main__":
     t2.join() 
     t3.join()
     t4.join()
+
+    print t1.isAlive()
+    print t2.isAlive()
+    print t3.isAlive()
+    print t4.isAlive()
     # both threads completely executed 
     print("Done!") 
 

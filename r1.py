@@ -14,7 +14,7 @@ ip_send_d = "10.10.4.2"
 ip_get_d = "10.10.4.1"
 
 port_r2= 32984  #data alma-gonderme portlari
-port_s = 32985
+port_s = 35435  
 port_d = 23426
 
 Message = "Sent by R1 "
@@ -95,8 +95,15 @@ if __name__ == "__main__":
     # wait until thread 2 is completely executed 
     t2.join() 
     t3.join()
+
+    print t1.isAlive()
+    print t2.isAlive()
+    print t3.isAlive()
+
     # both threads completely executed 
     print("Done!") 
+
+    
 
     r1_r2.close()
     r1_s.close()

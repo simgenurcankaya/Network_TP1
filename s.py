@@ -20,24 +20,30 @@ sockR3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 def getR1(ip,port):
     sockR1.bind((ip,port))
-    while True:
+    i= 1000
+    while i:
         data, addr = sockR1.recvfrom(1024)
         print "Message from R1: ", data
         sockR1.sendto(data, addr)
+        i-= 1
 
 def getR2(ip,port):
     sockR2.bind((ip,port))
-    while True:
+    i = 1000
+    while i:
         data, addr = sockR2.recvfrom(1024)
         print "Message from R2: ", data
         sockR2.sendto(data, addr)
+        i -= 1
 
 def getR3(ip,port):
     sockR3.bind((ip,port))
-    while True:
+    i= 1000
+    while i:
         data, addr = sockR3.recvfrom(1024)
         print "Message from R3: ", data
         sockR3.sendto(data, addr)
+        i -= 1
 
 
 if __name__ == "__main__":
@@ -54,5 +60,10 @@ if __name__ == "__main__":
     # wait until thread 2 is completely executed 
     t2.join() 
     t3.join()
+
+    print t1.isAlive()
+    print t2.isAlive()
+    print t3.isAlive()
+
     # both threads completely executed 
     print("Done!") 
