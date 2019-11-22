@@ -28,18 +28,36 @@ sockR1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sockD = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sockR3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+r2_s = open("r2_s.txt","w+")
+r2_d = open("r2_d.txt","w+")
 
 
 def sendS(ip,port):
     for i in range(1000):
         print "Now sending " + str(i) + "with thread 1"
+        start = time.time()
         sockS.sendto(Message + str(i), (ip, port)) 
+        try:
+            data, server = sockS.recvfrom(1024)
+            end = time.time()
+        except: 
+            print "Error occured in R2-S"
+        diff = end-start
+        r2_s.write(str(diff)+ '\n')
         print "Finished sending " + str(i) + "with thread 1"
 
 def sendD(ip,port):
     for i in range(1000):
         print "Now sending " + str(i) + "with thread 2"
+        start = time.time()
         sockD.sendto(Message + str(i), (ip, port)) 
+        try:
+            data, server = sockD.recvfrom(1024)
+            end = time.time()
+        except: 
+            print "Error occured in R2-D"
+        diff = end-start
+        r2_d.write(str(diff)+ '\n')
         print "Finished sending " + str(i) + "with thread 2"
 
 def getR1(ip,port):
@@ -47,13 +65,23 @@ def getR1(ip,port):
     while True:
         data, addr = sockR1.recvfrom(1024)
         print "Message: ", data
+        sockR1.sendto(data, addr)
 
 def getR3(ip,port):
     sockR3.bind((ip,port))
     while True:
         data, addr = sockR3.recvfrom(1024)
         print "Message: ", data
+        sockR3.sendto(data, addr)
 
+def avgCalc(a):
+    f = open(a,"r")
+    average = 0
+    for line in f:
+        average += float(line.strip('\n'))
+    wrt = open("avg.txt","a")
+    wrt.write("Avg for " + a + " is : "+ str(average) +"\n")
+    wrt.close()
 
 if __name__ == "__main__":
 
@@ -76,3 +104,10 @@ if __name__ == "__main__":
     t4.join()
     # both threads completely executed 
     print("Done!") 
+
+    r2_d.close()
+    r2_s.close()
+
+    avgCalc("r2_d.txt")
+    avgCalc("r2_s.txt")
+

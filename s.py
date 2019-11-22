@@ -23,18 +23,21 @@ def getR1(ip,port):
     while True:
         data, addr = sockR1.recvfrom(1024)
         print "Message from R1: ", data
+        sockR1.sendto(data, addr)
 
 def getR2(ip,port):
     sockR2.bind((ip,port))
     while True:
         data, addr = sockR2.recvfrom(1024)
         print "Message from R2: ", data
+        sockR2.sendto(data, addr)
 
 def getR3(ip,port):
     sockR3.bind((ip,port))
     while True:
         data, addr = sockR3.recvfrom(1024)
         print "Message from R3: ", data
+        sockR3.sendto(data, addr)
 
 
 if __name__ == "__main__":
